@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$1" = "" ]; then
+	echo "$0: Too few arguments"
+	echo "Usage: $0 <command>"
+	exit
+fi
+
+SHELLS='bash zsh ksh mksh dash'
+for shell in $SHELLS; do
+	/bin/time -f "memory: %M KB, system: %S s, user: %U s, real: %e s # $shell" "$shell" "$@"
+done

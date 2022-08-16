@@ -1,0 +1,13 @@
+#!/bin/sh
+
+TMP="shspeed-$(uuidgen).tmp"
+
+for a in $(seq 1 10000); do
+	echo "$a" >> "$TMP"
+	head -n10 /dev/urandom > /dev/null
+	echo "scale=10; sqrt($a)" | bc >> "$TMP"
+done
+
+cat "$TMP" >> "$TMP.copy"
+rm "$TMP"
+rm "$TMP.copy"
