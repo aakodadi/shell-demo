@@ -6,7 +6,7 @@ if [ "$1" = "" ]; then
 	exit
 fi
 
-SHELLS='bash zsh ksh mksh dash'
+SHELLS="$(cat /etc/shells | grep bin | grep -vw git | grep -o '[^/]*$' | uniq | grep -vw '^sh')"
 for shell in $SHELLS; do
 	/bin/time -f "memory: %M KB, system: %S s, user: %U s, real: %e s # $shell" "$shell" "$@"
 done
